@@ -18,8 +18,6 @@ public class JsonUtils {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(value);
 	}
-	
-	
 
 	/**
 	 * Deserialize object to string.
