@@ -1,6 +1,8 @@
 package devutility.external.json.jsonutils;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,11 @@ public class SerializeTest extends BaseTest {
 			User user = new User();
 			user.setCountries(new String[0]);
 			println(JsonUtils.serialize(user));
+
+			Dictionary<String, String> dictionary = new Hashtable<String, String>();
+			dictionary.put("asd", "123");
+			dictionary.put("qwe", "456");
+			println(JsonUtils.serialize(dictionary));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
