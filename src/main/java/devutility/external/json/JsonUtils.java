@@ -1,7 +1,10 @@
 package devutility.external.json;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,5 +36,17 @@ public class JsonUtils {
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(value, clazz);
+	}
+
+	/**
+	 * Deserialize jsonParser object to Date object.
+	 * @param jsonParser: JsonParser object.
+	 * @param dateFormat: DateFormat object.
+	 * @return Date
+	 * @throws Exception
+	 */
+	public static Date deserializeToDate(JsonParser jsonParser, DateFormat dateFormat) throws Exception {
+		String text = jsonParser.getText();
+		return dateFormat.parse(text);
 	}
 }
