@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.eagle6688</groupId>
 	<artifactId>devutility.external.json</artifactId>
@@ -64,6 +63,7 @@
 			<version>2.9.5</version>
 		</dependency>
 		<!-- jackson end -->
+		
 		<!-- devutility -->
 		<dependency>
 			<groupId>com.github.eagle6688</groupId>
@@ -72,11 +72,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- devutility end -->
+		
 		<!-- Test -->
 		<dependency>
-			<groupId>com.devutility</groupId>
+			<groupId>com.github.eagle6688</groupId>
 			<artifactId>devutility.test.model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Test end -->
