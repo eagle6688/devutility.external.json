@@ -2,8 +2,8 @@ package devutility.external.json;
 
 import java.io.IOException;
 
-import devutility.internal.data.codec.Base64Helper;
-import devutility.internal.data.codec.GZipHelper;
+import devutility.internal.data.codec.Base64Utils;
+import devutility.internal.data.codec.GzipUtils;
 import devutility.internal.data.codec.UTF8Utils;
 
 public class CompressUtils {
@@ -16,8 +16,8 @@ public class CompressUtils {
 	public static String compress(Object value) throws IOException {
 		String jsonValue = JsonUtils.serialize(value);
 		byte[] utf8Bytes = UTF8Utils.encode(jsonValue);
-		byte[] compressedBytes = GZipHelper.compress(utf8Bytes);
-		return Base64Helper.encodeToString(compressedBytes);
+		byte[] compressedBytes = GzipUtils.compress(utf8Bytes);
+		return Base64Utils.encodeToString(compressedBytes);
 	}
 
 	/**
@@ -28,8 +28,8 @@ public class CompressUtils {
 	 * @throws IOException
 	 */
 	public static <T> T decompress(String value, Class<T> clazz) throws IOException {
-		byte[] compressedBytes = Base64Helper.decodeByString(value);
-		byte[] utf8Bytes = GZipHelper.deCompress(compressedBytes);
+		byte[] compressedBytes = Base64Utils.decodeByString(value);
+		byte[] utf8Bytes = GzipUtils.deCompress(compressedBytes);
 		String jsonValue = UTF8Utils.decode(utf8Bytes);
 		return JsonUtils.deserialize(jsonValue, clazz);
 	}

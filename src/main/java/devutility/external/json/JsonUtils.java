@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import devutility.internal.lang.StringHelper;
+import devutility.internal.lang.StringUtils;
 
 public class JsonUtils {
 	/**
@@ -30,7 +30,7 @@ public class JsonUtils {
 	 * @throws IOException
 	 */
 	public static <T> T deserialize(String value, Class<T> clazz) throws IOException {
-		if (StringHelper.isNullOrEmpty(value)) {
+		if (StringUtils.isNullOrEmpty(value)) {
 			return null;
 		}
 
