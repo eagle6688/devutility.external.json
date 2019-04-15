@@ -13,8 +13,8 @@ import devutility.internal.lang.StringUtils;
 public class JsonUtils {
 	/**
 	 * Serialize string to object.
-	 * @param value: Object need serialize
-	 * @return String: Json string
+	 * @param value Object need serialize
+	 * @return String Json string
 	 * @throws JsonProcessingException
 	 */
 	public static String serialize(Object value) throws JsonProcessingException {
@@ -24,8 +24,8 @@ public class JsonUtils {
 
 	/**
 	 * Deserialize object to string.
-	 * @param value: String need to be deserialized.
-	 * @param clazz: Class object
+	 * @param value String need to be deserialized.
+	 * @param clazz Class object
 	 * @return {@code T}
 	 * @throws IOException
 	 */
@@ -40,8 +40,8 @@ public class JsonUtils {
 
 	/**
 	 * Deserialize jsonParser object to Date object.
-	 * @param jsonParser: JsonParser object.
-	 * @param dateFormat: DateFormat object.
+	 * @param jsonParser JsonParser object.
+	 * @param dateFormat DateFormat object.
 	 * @return Date
 	 * @throws Exception
 	 */
