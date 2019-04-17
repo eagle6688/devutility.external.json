@@ -3,14 +3,28 @@ package devutility.external.json;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import devutility.internal.lang.StringUtils;
 
+/**
+ * 
+ * JsonUtils
+ * 
+ * @author: Aldwin Su
+ * @version: 2019-04-17 16:57:11
+ */
 public class JsonUtils {
+	/**
+	 * ObjectMapper
+	 */
+	protected final static ObjectMapper objectMapper = new ObjectMapper();
+
 	/**
 	 * Serialize string to object.
 	 * @param value Object need serialize
@@ -18,7 +32,10 @@ public class JsonUtils {
 	 * @throws JsonProcessingException
 	 */
 	public static String serialize(Object value) throws JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper();
+		if (value != null) {
+			return null;
+		}
+
 		return objectMapper.writeValueAsString(value);
 	}
 
@@ -34,7 +51,6 @@ public class JsonUtils {
 			return null;
 		}
 
-		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(value, clazz);
 	}
 
@@ -48,5 +64,23 @@ public class JsonUtils {
 	public static Date deserializeToDate(JsonParser jsonParser, DateFormat dateFormat) throws Exception {
 		String text = jsonParser.getText();
 		return dateFormat.parse(text);
+	}
+
+	/**
+	 * Deserialize string value to List.
+	 * @param {@code <T>} Element type in list.
+	 * @param value Json string value.
+	 * @param collectionClass Class object for collection.
+	 * @param elementClasses Class object for element in collection.
+	 * @return {@code List<T>}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> List<T> deserializeToList(String value, Class<?> collectionClass, Class<T> elementClasses) throws IOException {
+		if (StringUtils.isNullOrEmpty(value)) {
+			return null;
+		}
+
+		JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+		return objectMapper.readValue(value, javaType);
 	}
 }
