@@ -68,7 +68,6 @@ public class JsonUtils {
 
 	/**
 	 * Deserialize string value to List.
-	 * @param {@code <T>} Element type in list.
 	 * @param value Json string value.
 	 * @param collectionClass Class object for collection.
 	 * @param elementClasses Class object for element in collection.
