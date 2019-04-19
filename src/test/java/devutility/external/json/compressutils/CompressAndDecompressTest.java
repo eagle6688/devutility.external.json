@@ -3,10 +3,9 @@ package devutility.external.json.compressutils;
 import java.io.IOException;
 import java.util.Date;
 
-import com.devutility.test.json.User;
-
 import devutility.external.json.CompressUtils;
 import devutility.external.json.JsonUtils;
+import devutility.external.json.models.User;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

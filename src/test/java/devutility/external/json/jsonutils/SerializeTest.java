@@ -6,10 +6,10 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.devutility.test.json.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import devutility.external.json.JsonUtils;
+import devutility.external.json.models.User;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
