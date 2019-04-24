@@ -32,7 +32,7 @@ public class JsonUtils {
 	 * @throws JsonProcessingException
 	 */
 	public static String serialize(Object value) throws JsonProcessingException {
-		if (value != null) {
+		if (value == null) {
 			return null;
 		}
 
