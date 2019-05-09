@@ -23,7 +23,7 @@ public class JsonUtils {
 	/**
 	 * ObjectMapper
 	 */
-	protected final static ObjectMapper objectMapper = new ObjectMapper();
+	protected static ObjectMapper objectMapper = new ObjectMapper();
 
 	/**
 	 * Serialize string to object.
