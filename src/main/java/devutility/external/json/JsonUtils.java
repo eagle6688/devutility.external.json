@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,7 +24,7 @@ public class JsonUtils {
 	/**
 	 * ObjectMapper
 	 */
-	protected static ObjectMapper objectMapper = new ObjectMapper();
+	public static ObjectMapper objectMapper = new ObjectMapper();
 
 	/**
 	 * Serialize object to Json string.
@@ -35,6 +36,10 @@ public class JsonUtils {
 	public static String serialize(ObjectMapper objectMapper, Object value) throws JsonProcessingException {
 		if (value == null) {
 			return null;
+		}
+
+		if (value instanceof String) {
+			return (String) value;
 		}
 
 		return objectMapper.writeValueAsString(value);
@@ -58,9 +63,14 @@ public class JsonUtils {
 	 * @return {@code T}
 	 * @throws IOException From readValue.
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T> T deserialize(ObjectMapper objectMapper, String value, Class<T> clazz) throws IOException {
-		if (StringUtils.isNullOrEmpty(value)) {
+		if (StringUtils.isNullOrEmpty(value) || clazz == null) {
 			return null;
+		}
+
+		if (clazz.equals(String.class)) {
+			return (T) value;
 		}
 
 		return objectMapper.readValue(value, clazz);
@@ -78,6 +88,138 @@ public class JsonUtils {
 	}
 
 	/**
+	 * Deserialize Json string to object.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value String need to be deserialized.
+	 * @param javaType JavaType object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(ObjectMapper objectMapper, String value, JavaType javaType) throws IOException {
+		if (StringUtils.isNullOrEmpty(value)) {
+			return null;
+		}
+
+		return objectMapper.readValue(value, javaType);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param value String need to be deserialized.
+	 * @param javaType JavaType object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(String value, JavaType javaType) throws IOException {
+		return deserialize(objectMapper, value, javaType);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value String need to be deserialized.
+	 * @param typeReference TypeReference object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> T deserialize(ObjectMapper objectMapper, String value, TypeReference typeReference) throws IOException {
+		if (StringUtils.isNullOrEmpty(value) || typeReference == null) {
+			return null;
+		}
+
+		if (typeReference.getType().equals(String.class)) {
+			return (T) value;
+		}
+
+		return objectMapper.readValue(value, typeReference);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param value String need to be deserialized.
+	 * @param typeReference TypeReference object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	@SuppressWarnings("rawtypes")
+	public static <T> T deserialize(String value, TypeReference typeReference) throws IOException {
+		return deserialize(objectMapper, value, typeReference);
+	}
+
+	/**
+	 * Create a JavaType object.
+	 * @param objectMapper ObjectMapper object.
+	 * @param collectionClazz Collection Class object.
+	 * @param elements Element Class object.
+	 * @return JavaType
+	 */
+	public static JavaType javaType(ObjectMapper objectMapper, Class<?> collectionClazz, Class<?>... elements) {
+		return objectMapper.getTypeFactory().constructParametricType(collectionClazz, elements);
+	}
+
+	/**
+	 * Create a JavaType object.
+	 * @param collectionClazz Collection Class object.
+	 * @param elements Element Class object.
+	 * @return JavaType
+	 */
+	public static JavaType javaType(Class<?> collectionClazz, Class<?>... elements) {
+		return objectMapper.getTypeFactory().constructParametricType(collectionClazz, elements);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value String need to be deserialized.
+	 * @param collectionClazz Collection Class object.
+	 * @param elements Element Class object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(ObjectMapper objectMapper, String value, Class<?> collectionClazz, Class<?>... elements) throws IOException {
+		JavaType javaType = javaType(objectMapper, collectionClazz, elements);
+		return deserialize(objectMapper, value, javaType);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param value String need to be deserialized.
+	 * @param collectionClazz Collection Class object.
+	 * @param elements Element Class object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(String value, Class<?> collectionClazz, Class<?>... elements) throws IOException {
+		return deserialize(objectMapper, value, collectionClazz, elements);
+	}
+
+	/**
+	 * Deserialize Json string value to List.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value Json string value.
+	 * @param collectionClass Class object for collection.
+	 * @param elementClass Class object for element in collection.
+	 * @return {@code List<T>}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> List<T> deserializeToList(ObjectMapper objectMapper, String value, Class<?> collectionClass, Class<T> elementClass) throws IOException {
+		return deserialize(objectMapper, value, collectionClass, elementClass);
+	}
+
+	/**
+	 * Deserialize Json string value to List.
+	 * @param value Json string value.
+	 * @param collectionClass Class object for collection.
+	 * @param elementClass Class object for element in collection.
+	 * @return {@code List<T>}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> List<T> deserializeToList(String value, Class<?> collectionClass, Class<T> elementClass) throws IOException {
+		return deserializeToList(objectMapper, value, collectionClass, elementClass);
+	}
+
+	/**
 	 * Deserialize jsonParser object to Date object.
 	 * @param jsonParser JsonParser object.
 	 * @param dateFormat DateFormat object.
@@ -87,35 +229,5 @@ public class JsonUtils {
 	public static Date deserializeToDate(JsonParser jsonParser, DateFormat dateFormat) throws Exception {
 		String text = jsonParser.getText();
 		return dateFormat.parse(text);
-	}
-
-	/**
-	 * Deserialize Json string value to List.
-	 * @param objectMapper ObjectMapper object.
-	 * @param value Json string value.
-	 * @param collectionClass Class object for collection.
-	 * @param elementClasses Class object for element in collection.
-	 * @return {@code List<T>}
-	 * @throws IOException From readValue.
-	 */
-	public static <T> List<T> deserializeToList(ObjectMapper objectMapper, String value, Class<?> collectionClass, Class<T> elementClasses) throws IOException {
-		if (StringUtils.isNullOrEmpty(value)) {
-			return null;
-		}
-
-		JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
-		return objectMapper.readValue(value, javaType);
-	}
-
-	/**
-	 * Deserialize Json string value to List.
-	 * @param value Json string value.
-	 * @param collectionClass Class object for collection.
-	 * @param elementClasses Class object for element in collection.
-	 * @return {@code List<T>}
-	 * @throws IOException From readValue.
-	 */
-	public static <T> List<T> deserializeToList(String value, Class<?> collectionClass, Class<T> elementClasses) throws IOException {
-		return deserializeToList(objectMapper, value, collectionClass, elementClasses);
 	}
 }

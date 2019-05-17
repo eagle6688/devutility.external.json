@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonParser.Feature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -19,11 +21,12 @@ public class TolerantJsonUtils {
 	/**
 	 * ObjectMapper
 	 */
-	protected static ObjectMapper objectMapper = new ObjectMapper();
+	public static ObjectMapper objectMapper = new ObjectMapper();
 
 	static {
+		objectMapper.enable(Feature.ALLOW_UNQUOTED_CONTROL_CHARS);
 		objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		objectMapper.configure(Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	}
 
 	/**
@@ -48,14 +51,25 @@ public class TolerantJsonUtils {
 	}
 
 	/**
+	 * Deserialize Json string to object.
+	 * @param value String need to be deserialized.
+	 * @param javaType JavaType object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(String value, JavaType javaType) throws IOException {
+		return JsonUtils.deserialize(objectMapper, value, javaType);
+	}
+
+	/**
 	 * Deserialize Json string value to List.
 	 * @param value Json string value.
 	 * @param collectionClass Class object for collection.
-	 * @param elementClasses Class object for element in collection.
+	 * @param elementClass Class object for element in collection.
 	 * @return {@code List<T>}
 	 * @throws IOException From readValue.
 	 */
-	public static <T> List<T> deserializeToList(String value, Class<?> collectionClass, Class<T> elementClasses) throws IOException {
-		return JsonUtils.deserializeToList(objectMapper, value, collectionClass, elementClasses);
+	public static <T> List<T> deserializeToList(String value, Class<?> collectionClass, Class<T> elementClass) throws IOException {
+		return JsonUtils.deserializeToList(objectMapper, value, collectionClass, elementClass);
 	}
 }
