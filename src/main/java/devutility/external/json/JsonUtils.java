@@ -26,12 +26,13 @@ public class JsonUtils {
 	protected static ObjectMapper objectMapper = new ObjectMapper();
 
 	/**
-	 * Serialize string to object.
-	 * @param value Object need serialize
-	 * @return String Json string
-	 * @throws JsonProcessingException
+	 * Serialize object to Json string.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value Object need to be serialized.
+	 * @return String Json string.
+	 * @throws JsonProcessingException From writeValueAsString.
 	 */
-	public static String serialize(Object value) throws JsonProcessingException {
+	public static String serialize(ObjectMapper objectMapper, Object value) throws JsonProcessingException {
 		if (value == null) {
 			return null;
 		}
@@ -40,18 +41,40 @@ public class JsonUtils {
 	}
 
 	/**
-	 * Deserialize object to string.
-	 * @param value String need to be deserialized.
-	 * @param clazz Class object
-	 * @return {@code T}
-	 * @throws IOException
+	 * Serialize object to Json string.
+	 * @param value Object need to be serialized.
+	 * @return String Json string
+	 * @throws JsonProcessingException
 	 */
-	public static <T> T deserialize(String value, Class<T> clazz) throws IOException {
+	public static String serialize(Object value) throws JsonProcessingException {
+		return serialize(objectMapper, value);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value String need to be deserialized.
+	 * @param clazz Class object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(ObjectMapper objectMapper, String value, Class<T> clazz) throws IOException {
 		if (StringUtils.isNullOrEmpty(value)) {
 			return null;
 		}
 
 		return objectMapper.readValue(value, clazz);
+	}
+
+	/**
+	 * Deserialize Json string to object.
+	 * @param value String need to be deserialized.
+	 * @param clazz Class object.
+	 * @return {@code T}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> T deserialize(String value, Class<T> clazz) throws IOException {
+		return deserialize(objectMapper, value, clazz);
 	}
 
 	/**
@@ -67,7 +90,25 @@ public class JsonUtils {
 	}
 
 	/**
-	 * Deserialize string value to List.
+	 * Deserialize Json string value to List.
+	 * @param objectMapper ObjectMapper object.
+	 * @param value Json string value.
+	 * @param collectionClass Class object for collection.
+	 * @param elementClasses Class object for element in collection.
+	 * @return {@code List<T>}
+	 * @throws IOException From readValue.
+	 */
+	public static <T> List<T> deserializeToList(ObjectMapper objectMapper, String value, Class<?> collectionClass, Class<T> elementClasses) throws IOException {
+		if (StringUtils.isNullOrEmpty(value)) {
+			return null;
+		}
+
+		JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+		return objectMapper.readValue(value, javaType);
+	}
+
+	/**
+	 * Deserialize Json string value to List.
 	 * @param value Json string value.
 	 * @param collectionClass Class object for collection.
 	 * @param elementClasses Class object for element in collection.
@@ -75,11 +116,6 @@ public class JsonUtils {
 	 * @throws IOException From readValue.
 	 */
 	public static <T> List<T> deserializeToList(String value, Class<?> collectionClass, Class<T> elementClasses) throws IOException {
-		if (StringUtils.isNullOrEmpty(value)) {
-			return null;
-		}
-
-		JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
-		return objectMapper.readValue(value, javaType);
+		return deserializeToList(objectMapper, value, collectionClass, elementClasses);
 	}
 }
