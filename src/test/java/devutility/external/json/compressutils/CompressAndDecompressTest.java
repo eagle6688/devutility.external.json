@@ -34,7 +34,7 @@ public class CompressAndDecompressTest extends BaseTest {
 	}
 
 	void test2() {
-		String[][] arrays = User.arrays(500000);
+		String[][] arrays = User.arrays(100);
 
 		try {
 			String compressedString = CompressUtils.compressDouble(arrays);
