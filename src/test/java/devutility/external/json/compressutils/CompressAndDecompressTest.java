@@ -12,6 +12,10 @@ import devutility.internal.test.TestExecutor;
 public class CompressAndDecompressTest extends BaseTest {
 	@Override
 	public void run() {
+		test2();
+	}
+
+	void test1() {
 		User user = new User();
 		user.setId(1);
 		user.setAge(30);
@@ -24,6 +28,22 @@ public class CompressAndDecompressTest extends BaseTest {
 
 			User originalUser = CompressUtils.decompress(compressedValue, User.class);
 			println(JsonUtils.serialize(originalUser));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	void test2() {
+		String[][] arrays = User.arrays(500000);
+
+		try {
+			String compressedString = CompressUtils.compressDouble(arrays);
+			println(compressedString.length());
+
+			long start = System.currentTimeMillis();
+			arrays = CompressUtils.decompressDouble(compressedString, String[][].class);
+			println(String.format("Decompress %d products cost %d milliseconds!", arrays.length, System.currentTimeMillis() - start));
+			println(arrays.length);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -74,4 +74,20 @@ public class User {
 
 		return list;
 	}
+
+	public static String[][] arrays(int count) {
+		String[][] arrays = new String[count][5];
+		List<User> list = list(count);
+
+		for (int i = 0; i < count; i++) {
+			User user = list.get(i);
+			arrays[i][0] = String.valueOf(user.getId());
+			arrays[i][1] = String.valueOf(user.getAge());
+			arrays[i][2] = String.valueOf(user.getBirthday().getTime());
+			arrays[i][3] = String.join(",", user.getCountries());
+			arrays[i][4] = user.getName();
+		}
+
+		return arrays;
+	}
 }
