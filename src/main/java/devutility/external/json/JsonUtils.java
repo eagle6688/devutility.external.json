@@ -122,14 +122,9 @@ public class JsonUtils {
 	 * @return {@code T}
 	 * @throws IOException From readValue.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static <T> T deserialize(ObjectMapper objectMapper, String value, TypeReference typeReference) throws IOException {
+	public static <T> T deserialize(ObjectMapper objectMapper, String value, TypeReference<T> typeReference) throws IOException {
 		if (StringUtils.isNullOrEmpty(value) || typeReference == null) {
 			return null;
-		}
-
-		if (typeReference.getType().equals(String.class)) {
-			return (T) value;
 		}
 
 		return objectMapper.readValue(value, typeReference);
@@ -142,8 +137,7 @@ public class JsonUtils {
 	 * @return {@code T}
 	 * @throws IOException From readValue.
 	 */
-	@SuppressWarnings("rawtypes")
-	public static <T> T deserialize(String value, TypeReference typeReference) throws IOException {
+	public static <T> T deserialize(String value, TypeReference<T> typeReference) throws IOException {
 		return deserialize(objectMapper, value, typeReference);
 	}
 
