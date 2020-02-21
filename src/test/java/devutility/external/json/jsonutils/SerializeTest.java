@@ -29,8 +29,9 @@ public class SerializeTest extends BaseTest {
 			println(JsonUtils.serialize(user));
 
 			Dictionary<String, String> dictionary = new Hashtable<String, String>();
-			dictionary.put("asd", "123");
+			dictionary.put("asd", "123,234");
 			dictionary.put("qwe", "456");
+			dictionary.put("zxc", JsonUtils.serialize(dictionary));
 			println(JsonUtils.serialize(dictionary));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
