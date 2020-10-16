@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import devutility.external.json.JsonUtils;
-import devutility.external.json.models.ModelForEnum;
+import devutility.external.json.model.ModelForEnum;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

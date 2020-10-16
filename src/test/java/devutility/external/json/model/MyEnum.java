@@ -1,4 +1,4 @@
-package devutility.external.json.models;
+package devutility.external.json.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

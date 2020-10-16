@@ -1,8 +1,12 @@
-package devutility.external.json.models;
+package devutility.external.json.model;
 
 public class ModelForEnum {
 	private MyEnum myEnum;
 	private String type;
+
+	public ModelForEnum() {
+		System.out.println(type);
+	}
 
 	public MyEnum getMyEnum() {
 		return myEnum;

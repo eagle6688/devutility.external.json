@@ -1,4 +1,4 @@
-package devutility.external.json.models;
+package devutility.external.json.model;
 
 public class BaseResponse<T> {
 	private boolean code = true;

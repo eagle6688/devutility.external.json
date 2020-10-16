@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import devutility.external.json.JsonUtils;
-import devutility.external.json.models.User;
+import devutility.external.json.model.User;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 

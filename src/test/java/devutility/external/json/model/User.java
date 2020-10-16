@@ -1,4 +1,4 @@
-package devutility.external.json.models;
+package devutility.external.json.model;
 
 import java.util.ArrayList;
 import java.util.Date;

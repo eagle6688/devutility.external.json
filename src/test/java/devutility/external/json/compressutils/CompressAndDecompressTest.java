@@ -5,7 +5,7 @@ import java.util.Date;
 
 import devutility.external.json.CompressUtils;
 import devutility.external.json.JsonUtils;
-import devutility.external.json.models.User;
+import devutility.external.json.model.User;
 import devutility.internal.test.BaseTest;
 import devutility.internal.test.TestExecutor;
 
