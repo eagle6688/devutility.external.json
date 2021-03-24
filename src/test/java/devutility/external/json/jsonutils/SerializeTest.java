@@ -26,6 +26,7 @@ public class SerializeTest extends BaseTest {
 
 			User user = new User();
 			user.setCountries(new String[0]);
+			user.setEmail("asd@asd.com");
 			println(JsonUtils.serialize(user));
 
 			Dictionary<String, String> dictionary = new Hashtable<String, String>();

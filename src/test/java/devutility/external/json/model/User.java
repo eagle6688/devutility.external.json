@@ -1,5 +1,6 @@
 package devutility.external.json.model;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ public class User {
 	private String[] countries;
 
 	private Date birthday;
+	private String email;
 
 	public int getId() {
 		return id;
@@ -56,6 +58,15 @@ public class User {
 
 	public void setCountries(String[] countries) {
 		this.countries = countries;
+	}
+
+	@Transient
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public static List<User> list(int count) {
