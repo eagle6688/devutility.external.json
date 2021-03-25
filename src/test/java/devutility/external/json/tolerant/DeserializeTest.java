@@ -1,4 +1,4 @@
-package devutility.external.json.tolerant_json_utils;
+package devutility.external.json.tolerant;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

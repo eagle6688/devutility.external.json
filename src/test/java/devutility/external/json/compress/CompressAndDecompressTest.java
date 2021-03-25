@@ -1,4 +1,4 @@
-package devutility.external.json.compressutils;
+package devutility.external.json.compress;
 
 import java.io.IOException;
 import java.util.Date;

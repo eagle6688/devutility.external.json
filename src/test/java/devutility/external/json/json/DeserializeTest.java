@@ -1,4 +1,4 @@
-package devutility.external.json.jsonutils;
+package devutility.external.json.json;
 
 import java.io.IOException;
 import java.util.Map;
